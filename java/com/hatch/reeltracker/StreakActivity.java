@@ -117,7 +117,7 @@ public class StreakActivity extends Activity {
             }
             ImageView check = new ImageView(this);
             check.setImageResource(R.drawable.ic_check);
-            int chk = isToday ? 0xFFFFFFFF : (clean ? checkGreen : checkGray);
+            int chk = isToday ? getColor(R.color.day_today_check) : (clean ? checkGreen : checkGray);
             check.setColorFilter(chk, PorterDuff.Mode.SRC_IN);
             int chs = dp(20);
             FrameLayout.LayoutParams clp = new FrameLayout.LayoutParams(chs, chs, Gravity.CENTER);

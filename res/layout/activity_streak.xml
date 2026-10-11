@@ -27,16 +27,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/pill_streak"
+                android:background="@drawable/pill_peach"
                 android:paddingStart="14dp"
                 android:paddingEnd="16dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_flame"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/doodle_flame"
                     android:contentDescription="flame" />
 
                 <TextView
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:text="7-day streak"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/streak_pill_text" />
             </LinearLayout>
@@ -55,21 +55,75 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <ImageView
+            <FrameLayout
                 android:id="@+id/btn_close"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:padding="11dp"
-                android:src="@drawable/ic_close"
-                android:contentDescription="close" />
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_td"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_close"
+                    android:contentDescription="close" />
+            </FrameLayout>
         </LinearLayout>
 
         <!-- Flame hero -->
-        <com.hatch.reeltracker.FlameView
+        <FrameLayout
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="14dp" />
+            android:layout_marginTop="14dp">
+
+            <ImageView
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:layout_gravity="center"
+                android:src="@drawable/circle_lavender" />
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:src="@drawable/doodle_flame"
+                android:contentDescription="streak flame" />
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="top|left"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="42dp"
+                android:src="@drawable/ic_sparkles_purple" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="top|right"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="66dp"
+                android:src="@drawable/ic_sparkles_purple" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="36dp"
+                android:src="@drawable/ic_sparkles_purple" />
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginEnd="26dp"
+                android:layout_marginBottom="52dp"
+                android:src="@drawable/ic_sparkles_purple" />
+        </FrameLayout>
 
         <!-- Headline -->
         <TextView
@@ -79,7 +133,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="A whole week. All you."
-            android:textSize="28sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:textColor="@color/td_text" />
 
@@ -90,8 +144,8 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="You stayed within your goal for 7 days. That's real progress, one day at a time."
-            android:textSize="15sp"
-            android:lineSpacingExtra="3dp"
+            android:textSize="19sp"
+            android:lineSpacingExtra="4dp"
             android:textColor="@color/td_sub" />
 
         <!-- Week of small wins -->
@@ -114,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Your week of small wins"
-                    android:textSize="16sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/td_text" />
 
@@ -123,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Oct 5–11"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:textColor="@color/td_sub" />
             </LinearLayout>
 
@@ -141,58 +195,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:background="@drawable/card_td"
             android:padding="20dp">
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/chip_tint"
-                android:padding="12dp"
-                android:src="@drawable/ic_leaf"
-                android:contentDescription="leaf" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tv_reclaimed_big"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2h 48m"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/td_text" />
+                <FrameLayout
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/circle_lavender">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/doodle_leaves"
+                        android:contentDescription="leaves" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="reclaimed this week. Spend it on you."
-                    android:textSize="13sp"
-                    android:textColor="@color/td_sub" />
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_reclaimed_big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2h 48m"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/td_text" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="reclaimed this week.\nSpend it on you."
+                        android:textSize="16sp"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/td_sub" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- CTA -->
-        <Button
-            android:id="@+id/btn_keep"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="26dp"
-            android:background="@drawable/btn_primary"
-            android:drawableStart="@drawable/ic_arrow_right"
-            android:drawablePadding="8dp"
-            android:text="Keep the good going"
-            android:textAllCaps="false"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF" />
+            <Button
+                android:id="@+id/btn_keep"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/btn_primary"
+                android:drawableStart="@drawable/ic_arrow_right"
+                android:drawablePadding="8dp"
+                android:text="Keep the good going"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -200,7 +266,7 @@
             android:layout_marginTop="14dp"
             android:gravity="center"
             android:text="A missed day never erases your progress."
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textColor="@color/td_sub" />
 
     </LinearLayout>

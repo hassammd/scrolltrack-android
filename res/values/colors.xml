@@ -54,11 +54,12 @@
     <!-- Streak celebration (Figma 05) -->
     <color name="streak_pill_bg">#FDEFD8</color>
     <color name="streak_pill_text">#B45309</color>
-    <color name="day_clean_bg">#DFF7E8</color>
-    <color name="day_clean_check">#1F9D63</color>
-    <color name="day_broken_bg">#ECECF1</color>
-    <color name="day_broken_check">#B9BCC8</color>
-    <color name="day_today_bg">#6257E8</color>
+    <color name="day_clean_bg">#D6EEDD</color>
+    <color name="day_clean_check">#0E3A45</color>
+    <color name="day_broken_bg">#E3E9EE</color>
+    <color name="day_broken_check">#B9C4CE</color>
+    <color name="day_today_bg">#0E3A45</color>
+    <color name="day_today_check">#FFFFFF</color>
 
     <!-- Onboarding (Figma 01) — light theme (night overrides in values-night) -->
     <color name="ob_bg">#F6F6FB</color>
