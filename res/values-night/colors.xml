@@ -29,6 +29,7 @@
     <color name="td_lavender_bg">#2B2650</color>
     <color name="td_peach1">#3A2C1B</color>
     <color name="td_peach2">#4A3520</color>
+    <color name="td_other_bar">#33424E</color>
     <color name="td_break_bg">#2A2148</color>
     <color name="td_chip_off">#1C1C24</color>
     <color name="td_toggle_off">#3A3A44</color>

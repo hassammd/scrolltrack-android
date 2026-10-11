@@ -490,8 +490,8 @@ public class MainActivity extends Activity {
     }
 
     private void styleSeg(TextView tv, boolean active) {
-        tv.setBackgroundResource(active ? R.drawable.seg_selected_td : 0);
-        tv.setTextColor(active ? getColor(R.color.td_primary) : getColor(R.color.td_sub));
+        tv.setBackgroundResource(active ? R.drawable.seg_selected_new : 0);
+        tv.setTextColor(active ? 0xFFFFFFFF : getColor(R.color.td_sub));
         tv.setTypeface(null, active ? Typeface.BOLD : Typeface.NORMAL);
     }
 
@@ -523,6 +523,9 @@ public class MainActivity extends Activity {
         }
         chartAnalytics.setYAxis(false);
         chartAnalytics.setData(labels, segs, new int[]{getColor(R.color.td_primary)}, -1, false, false);
+        chartAnalytics.setMaxTooltip(true);
+        chartAnalytics.setAvgLine(false);
+        chartAnalytics.setLetterPills(false);
         legendRow.setVisibility(View.GONE);
 
         StatsDb.Day d = db.getDay(date);
@@ -554,7 +557,7 @@ public class MainActivity extends Activity {
         String[] labels = new String[n];
         long[][] segs = new long[n][2];
         long sumSecs = 0;
-        int otherColor = isNight() ? 0xFF7A6FF0 : 0xFFC9BFF5;
+        int otherColor = getColor(R.color.td_other_bar);
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat wdFmt = new SimpleDateFormat("EEE", Locale.US);
         for (int i = 0; i < n; i++) {
@@ -576,6 +579,9 @@ public class MainActivity extends Activity {
         chartAnalytics.setYAxis(true);
         chartAnalytics.setData(labels, segs, new int[]{getColor(R.color.td_primary), otherColor},
                 endAgo == 0 ? n - 1 : -1, false, false);
+        chartAnalytics.setMaxTooltip(true);
+        chartAnalytics.setAvgLine(true);
+        chartAnalytics.setLetterPills(true);
         legendRow.setVisibility(View.VISIBLE);
 
         double avgSecs = sumSecs / (double) n;
@@ -640,7 +646,7 @@ public class MainActivity extends Activity {
             c0.add(Calendar.DAY_OF_YEAR, -(endAgo + n - 1));
             Calendar c1 = Calendar.getInstance();
             c1.add(Calendar.DAY_OF_YEAR, -endAgo);
-            rangeLbl = mf.format(c0.getTime()) + "–" + mf.format(c1.getTime());
+            rangeLbl = anMode == 1 ? "This week" : "This month";
         }
         tvBreakdownRange.setText(rangeLbl);
         StatsDb.Day d = db.getRangeSum(startDate, endDate);
@@ -665,10 +671,20 @@ public class MainActivity extends Activity {
             ((TextView) row.findViewById(R.id.row_time))
                     .setText(fmtShortMins(apps[idx][0] / 60));
             ((TextView) row.findViewById(R.id.row_reels))
-                    .setText(String.valueOf(apps[idx][1]));
+                    .setText(apps[idx][1] + " reels");
             ((TextView) row.findViewById(R.id.row_reels_time))
                     .setText(fmtShortMins(apps[idx][2] / 60) + " reels");
             rowsContainer.addView(row);
+            if (idx != order[order.length - 1]) {
+                View div = new View(this);
+                div.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, 1));
+                div.setBackgroundColor(getColor(R.color.td_track));
+                LinearLayout.LayoutParams lp =
+                        (LinearLayout.LayoutParams) div.getLayoutParams();
+                lp.leftMargin = (int) (60 * getResources().getDisplayMetrics().density + 0.5f);
+                rowsContainer.addView(div);
+            }
         }
         tvTotals.setText(d.totalReels() + " reels · "
                 + fmtShortMins(d.reelsSecs() / 60) + " total");

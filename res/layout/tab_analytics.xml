@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Insights"
-                android:textSize="30sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/td_text" />
 
@@ -36,18 +36,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="A clearer picture of your habits."
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textColor="@color/td_sub" />
         </LinearLayout>
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/btn_calendar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/circle_td"
-            android:padding="13dp"
-            android:src="@drawable/ic_calendar"
-            android:contentDescription="calendar" />
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_calendar_new"
+                android:contentDescription="calendar" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- Day / Week / Month with period navigation -->
@@ -74,7 +81,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
-            android:background="@drawable/seg_track_td"
+            android:background="@drawable/nav_pill"
             android:padding="4dp">
 
             <TextView
@@ -150,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Daily average · Oct 5–11"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:textColor="@color/td_sub" />
 
                 <TextView
@@ -159,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="1h 48m"
-                    android:textSize="28sp"
+                    android:textSize="44sp"
                     android:textStyle="bold"
                     android:textColor="@color/td_text" />
             </LinearLayout>
@@ -182,7 +189,7 @@
         <com.hatch.reeltracker.BarsView
             android:id="@+id/chart_analytics"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="195dp"
             android:layout_marginTop="10dp" />
 
         <LinearLayout
@@ -196,7 +203,7 @@
             <View
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:background="@drawable/ob_dot_active" />
+                android:background="@drawable/dot_reels" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -251,17 +258,30 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="App breakdown"
-                android:textSize="17sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/td_text" />
 
-            <TextView
-                android:id="@+id/tv_breakdown_range"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Today"
-                android:textSize="13sp"
-                android:textColor="@color/td_sub" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_breakdown_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today"
+                    android:textSize="14sp"
+                    android:textColor="@color/td_sub" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_chevron" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -314,7 +334,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:background="@drawable/footer_pill"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/tv_other_apps"
@@ -336,13 +361,35 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Updated just now · Your data stays private."
-        android:textSize="12sp"
-        android:textColor="@color/td_sub" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_shield_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="Your data stays on your phone."
+            android:textSize="13sp"
+            android:textColor="@color/td_sub" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>

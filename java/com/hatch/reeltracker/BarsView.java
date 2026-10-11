@@ -23,11 +23,21 @@ public class BarsView extends View {
     private boolean dimOthers = false;
     private boolean showValues = false;
     private boolean yAxis = false;
+    private boolean maxTooltip = false;
+    private boolean avgLine = false;
+    private boolean letterPills = false;
+    private int maxIdx = -1;
 
     private final Paint barPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint gridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint valPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint tipBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint tipPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint avgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint avgBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint avgTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint pillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private static final int DIM = 0xFFE4E2FA;
     private static final int STUB = 0xFFE9EAF2;
@@ -69,6 +79,24 @@ public class BarsView extends View {
         invalidate();
     }
 
+    /** Dark-teal value bubble above the tallest bar (Insights redesign). */
+    public void setMaxTooltip(boolean b) {
+        maxTooltip = b;
+        invalidate();
+    }
+
+    /** Dashed average line with an "Avg X" pill (Insights redesign). */
+    public void setAvgLine(boolean b) {
+        avgLine = b;
+        invalidate();
+    }
+
+    /** Rounded day-letter pills under bars; the max bar's pill is teal. */
+    public void setLetterPills(boolean b) {
+        letterPills = b;
+        invalidate();
+    }
+
     private boolean night() {
         return (getResources().getConfiguration().uiMode
                 & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
@@ -94,11 +122,18 @@ public class BarsView extends View {
         int n = Math.max(labels.length, segs.length);
         if (n == 0) return;
         long max = 1;
-        for (int i = 0; i < n; i++) max = Math.max(max, total(i));
+        maxIdx = -1;
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            long t = total(i);
+            sum += t;
+            if (t > max) { max = t; maxIdx = i; }
+        }
 
         float w = getWidth(), h = getHeight();
-        float labelH = (sublabels != null) ? 62f : 40f;
-        float topPad = showValues ? 34f : 12f;
+        boolean pills = letterPills && n <= 7;
+        float labelH = (sublabels != null) ? 62f : (pills ? 58f : 40f);
+        float topPad = (showValues ? 34f : 12f) + ((maxTooltip || avgLine) ? 46f : 0f);
         float plotH = h - labelH - topPad;
         float baseY = topPad + plotH;
         float leftPad = yAxis ? 64f : 0f;
@@ -128,7 +163,7 @@ public class BarsView extends View {
 
             if (t == 0) {
                 c.drawRoundRect(new RectF(left, baseY - 8f, right, baseY), 6f, 6f, stubPaint());
-                drawLabel(c, i, cx, h);
+                drawLabel(c, i, cx, h, pills);
                 continue;
             }
             float bh = plotH * t / max;
@@ -150,8 +185,56 @@ public class BarsView extends View {
                 y -= sh;
             }
             if (showValues) c.drawText(String.valueOf(t), cx, top - 8f, valPaint);
-            drawLabel(c, i, cx, h);
+            drawLabel(c, i, cx, h, pills);
         }
+        if (maxTooltip && maxIdx >= 0) {
+            float cx = leftPad + slot * maxIdx + slot / 2f;
+            long t = total(maxIdx);
+            float barTop = baseY - plotH * t / max;
+            drawMaxTooltip(c, cx, barTop, t);
+        }
+        if (avgLine && n > 0) {
+            drawAvgLine(c, leftPad, w, baseY, plotH, max, sum / (double) n);
+        }
+    }
+
+    private void drawMaxTooltip(Canvas c, float cx, float barTop, long value) {
+        boolean nt = night();
+        String s = fmtY(value);
+        tipPaint.setTextSize(26f);
+        tipPaint.setFakeBoldText(true);
+        tipPaint.setTextAlign(Paint.Align.CENTER);
+        float tw = tipPaint.measureText(s);
+        float pad = 18f, bw = tw + pad * 2f, bh = 46f;
+        float left = Math.max(4f, Math.min(cx - bw / 2f, getWidth() - bw - 4f));
+        float top = Math.max(2f, barTop - bh - 12f);
+        tipBgPaint.setColor(nt ? 0xFF6FD3BE : 0xFF0E3A45);
+        c.drawRoundRect(new RectF(left, top, left + bw, top + bh), 15f, 15f, tipBgPaint);
+        tipPaint.setColor(nt ? 0xFF0E3A45 : 0xFFFFFFFF);
+        c.drawText(s, left + bw / 2f, top + bh / 2f + 9f, tipPaint);
+    }
+
+    private void drawAvgLine(Canvas c, float leftPad, float w, float baseY,
+                             float plotH, long max, double avg) {
+        if (max <= 0) return;
+        boolean nt = night();
+        float y = (float) (baseY - plotH * avg / max);
+        avgPaint.setColor(nt ? 0xFF5A6B76 : 0xFF9DB2C0);
+        avgPaint.setStyle(Paint.Style.STROKE);
+        avgPaint.setStrokeWidth(2.5f);
+        avgPaint.setPathEffect(new DashPathEffect(new float[]{10f, 8f}, 0));
+        c.drawLine(leftPad, y, w, y, avgPaint);
+        String s = "Avg " + fmtY(Math.round(avg));
+        avgTextPaint.setTextSize(22f);
+        avgTextPaint.setTextAlign(Paint.Align.CENTER);
+        float tw = avgTextPaint.measureText(s);
+        float pad = 14f, bw = tw + pad * 2f, bh = 36f;
+        float pl = w - bw - 4f;
+        float pt = Math.max(2f, y - bh / 2f);
+        avgBgPaint.setColor(nt ? 0xFF24333D : 0xFFE8EDF2);
+        c.drawRoundRect(new RectF(pl, pt, pl + bw, pt + bh), 18f, 18f, avgBgPaint);
+        avgTextPaint.setColor(nt ? 0xFF93A3B3 : 0xFF8A99A5);
+        c.drawText(s, pl + bw / 2f, pt + bh / 2f + 8f, avgTextPaint);
     }
 
     private final Paint stubP = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -161,8 +244,13 @@ public class BarsView extends View {
     }
 
     private void drawLabel(Canvas c, int i, float cx, float h) {
+        drawLabel(c, i, cx, h, false);
+    }
+
+    private void drawLabel(Canvas c, int i, float cx, float h, boolean pills) {
         String lab = (i < labels.length && labels[i] != null) ? labels[i] : "";
         boolean hl = (i == highlight);
+        boolean nt = night();
         if (sublabels != null && i < sublabels.length && sublabels[i] != null
                 && !sublabels[i].isEmpty()) {
             // two-line: number on top, day below (like the reference)
@@ -177,9 +265,24 @@ public class BarsView extends View {
             c.drawText(sublabels[i], cx, h - 10f, textPaint);
             textPaint.setTextSize(24f);
         } else if (!lab.isEmpty()) {
-            if (hl) {
+            if (pills) {
+                boolean isMax = (i == maxIdx);
+                float pw = 58f, ph = 42f;
+                float top = h - ph - 8f;
+                pillPaint.setColor(isMax
+                        ? (nt ? 0xFF6FD3BE : 0xFF0E3A45)
+                        : (nt ? 0xFF24333D : 0xFFE8EDF2));
+                c.drawRoundRect(new RectF(cx - pw / 2f, top, cx + pw / 2f, top + ph),
+                        21f, 21f, pillPaint);
+                textPaint.setColor(isMax
+                        ? (nt ? 0xFF0E3A45 : 0xFFFFFFFF)
+                        : (nt ? 0xFF93A3B3 : 0xFF8A99A5));
+                textPaint.setFakeBoldText(isMax);
+                c.drawText(lab, cx, top + ph / 2f + 8f, textPaint);
+                textPaint.setFakeBoldText(false);
+            } else if (hl) {
                 int prev = textPaint.getColor();
-                textPaint.setColor(0xFF6257E8);
+                textPaint.setColor(nt ? 0xFF6FD3BE : 0xFF0E3A45);
                 textPaint.setFakeBoldText(true);
                 c.drawText(lab, cx, h - 10f, textPaint);
                 textPaint.setFakeBoldText(false);
