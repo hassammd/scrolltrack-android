@@ -369,14 +369,16 @@ public class MainActivity extends Activity {
         return (mins / 60) + "h " + (mins % 60) + "m";
     }
 
-    // ---------------- you (temporary) ----------------
+    // ---------------- you (redesign) ----------------
 
     private void bindYou() {
-        findViewById(R.id.btn_you_diag).setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener goDiag = new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DiagnosticsActivity.class));
             }
-        });
+        };
+        findViewById(R.id.btn_you_diag).setOnClickListener(goDiag);
+        findViewById(R.id.row_you_about).setOnClickListener(goDiag);
         refreshYou();
     }
 
@@ -384,20 +386,52 @@ public class MainActivity extends Activity {
         int streak = prefs.getStreak();
         int longest = prefs.getStreakLongest();
         TextView tvStreak = findViewById(R.id.tv_you_streak);
-        TextView tvSub = findViewById(R.id.tv_you_streak_sub);
+        TextView tvStreakSub = findViewById(R.id.tv_you_streak_sub);
         if (streak >= 1) {
-            tvStreak.setText("🔥 " + streak + "-day streak");
-            tvSub.setText("Longest streak: " + longest + " days. "
+            tvStreak.setText(streak + "-day streak");
+            tvStreakSub.setText("Longest: " + longest + " days \u00B7 "
                     + "A missed day never erases your progress.");
         } else {
             tvStreak.setText("Start your streak");
-            tvSub.setText("Every clean day will grow your flame. Keep showing up.");
+            tvStreakSub.setText("Every clean day grows your flame."
+                    + (longest > 0 ? " Longest: " + longest + " days." : ""));
         }
+
+        // Monthly balance summary: clean days in the last 30 days
+        StreakManager sm = new StreakManager(this);
+        int clean = 0;
+        for (int k = 0; k < 30; k++) {
+            if (sm.isClean(db.getDay(StatsDb.dateDaysAgo(k)))) clean++;
+        }
+        double ratio = clean / 30.0;
+        String verdict = ratio >= 0.8 ? "Excellent"
+                : ratio >= 0.5 ? "Good"
+                : ratio >= 0.25 ? "Getting there" : "Fresh start";
+        ((TextView) findViewById(R.id.tv_you_verdict)).setText(verdict);
+        ((TextView) findViewById(R.id.tv_you_month_sub)).setText(
+                "You stayed within your goal " + clean + " of 30 days.");
+
+        // Reels cut + time reclaimed: last 30 days vs the previous 30
+        StatsDb.Day cur = db.getRangeSum(StatsDb.dateDaysAgo(29), StatsDb.today());
+        StatsDb.Day prev = db.getRangeSum(StatsDb.dateDaysAgo(59), StatsDb.dateDaysAgo(30));
+        TextView tvCut = findViewById(R.id.tv_you_reels_cut);
+        if (prev.totalReels() > 0) {
+            int pct = (int) Math.round(
+                    (prev.totalReels() - cur.totalReels()) * 100.0 / prev.totalReels());
+            tvCut.setText((pct >= 0 ? "\u2193 " : "\u2191 ") + Math.abs(pct) + "%");
+        } else {
+            tvCut.setText("\u2014");
+        }
+        long reclaimedSecs = Math.max(0, prev.totalSecs() - cur.totalSecs());
+        ((TextView) findViewById(R.id.tv_you_reclaimed))
+                .setText(fmtShortMins((int) (reclaimedSecs / 60)));
+        ((TextView) findViewById(R.id.tv_you_clean)).setText(String.valueOf(clean));
+
         try {
             String v = getPackageManager()
                     .getPackageInfo(getPackageName(), 0).versionName;
             ((TextView) findViewById(R.id.tv_you_version)).setText(
-                    "Version " + v + " · Made to beat scrolling addiction.");
+                    "Version " + v + " \u00B7 Made to beat scrolling addiction.");
         } catch (Exception e) {
             // keep fallback text
         }

@@ -1,110 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- You tab — temporary native screen until the Figma design arrives -->
+<!-- You tab — redesign: your journey at a glance -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/td_bg"
-    android:paddingStart="24dp"
-    android:paddingEnd="24dp"
-    android:paddingTop="10dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="6dp"
     android:paddingBottom="24dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/td_text" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Your journey, at a glance."
-        android:textSize="13sp"
-        android:textColor="@color/td_sub" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@color/td_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Your journey, at a glance."
+                android:textSize="17sp"
+                android:textColor="@color/td_sub" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/circle_td">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person_new"
+                android:contentDescription="you" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Streak card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:orientation="vertical"
-        android:background="@drawable/card_td"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/streak_banner_new"
         android:padding="20dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/doodle_flame"
+            android:contentDescription="streak flame" />
 
-            <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/ic_flame"
-                android:contentDescription="flame" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_you_streak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Start your streak"
-                android:textSize="17sp"
+                android:text="12-day streak"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#7C3F0C" />
+
+            <TextView
+                android:id="@+id/tv_you_streak_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Longest: 30 days · A missed day never erases your progress."
+                android:textSize="15sp"
+                android:lineSpacingExtra="2dp"
+                android:textColor="@color/td_sub" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Monthly balance summary -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/card_blue_grad"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly balance summary"
+                android:textSize="16sp"
+                android:textColor="@color/td_sub" />
+
+            <TextView
+                android:id="@+id/tv_you_verdict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Good"
+                android:textSize="46sp"
+                android:textStyle="bold"
+                android:textColor="@color/td_text" />
+
+            <TextView
+                android:id="@+id/tv_you_month_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="You stayed within your goal 21 of 30 days."
+                android:textSize="16sp"
+                android:lineSpacingExtra="2dp"
+                android:textColor="@color/td_sub" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/doodle_sun_smile"
+            android:contentDescription="sun" />
+    </LinearLayout>
+
+    <!-- Stat cards -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="7dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/card_td"
+            android:padding="14dp">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/circle_lavender">
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/doodle_clapper" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Reels cut"
+                android:textSize="15sp"
+                android:textColor="@color/td_text" />
+
+            <TextView
+                android:id="@+id/tv_you_reels_cut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="↓ 32%"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/td_text" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_you_streak_sub"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Every clean day will grow your flame. Keep showing up."
-            android:textSize="13sp"
-            android:textColor="@color/td_sub" />
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/card_td"
+            android:padding="14dp">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/circle_mint">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/doodle_leaves" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Time reclaimed"
+                android:textSize="15sp"
+                android:textColor="@color/td_text" />
+
+            <TextView
+                android:id="@+id/tv_you_reclaimed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="8h 12m"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/td_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/card_td"
+            android:padding="14dp">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/circle_lavender">
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/doodle_cal_check" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Clean days"
+                android:textSize="15sp"
+                android:textColor="@color/td_text" />
+
+            <TextView
+                android:id="@+id/tv_you_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="21"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/td_text" />
+        </LinearLayout>
     </LinearLayout>
 
+    <!-- About card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:orientation="vertical"
         android:background="@drawable/card_td"
         android:padding="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/row_you_about"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ScrollTrack"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:textColor="@color/td_text" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true">
 
-        <TextView
-            android:id="@+id/tv_you_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="ScrollTrack · Made to beat scrolling addiction."
-            android:textSize="13sp"
-            android:textColor="@color/td_sub" />
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/tile_mint">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/doodle_sprout" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ScrollTrack"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/td_text" />
+
+                <TextView
+                    android:id="@+id/tv_you_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Version 2.7 · Made to beat scrolling addiction."
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/td_sub" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_chevron" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_you_diag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/btn_primary"
+            android:drawableStart="@drawable/ic_activity"
+            android:drawablePadding="10dp"
             android:text="Diagnostics"
             android:textAllCaps="false"
-            android:textSize="14sp"
+            android:textSize="17sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp" />
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- Footer -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_sparkle_tiny" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Small changes. Big difference."
+            android:textSize="14sp"
+            android:textColor="@color/td_sub" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_sparkle_tiny" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>
