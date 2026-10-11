@@ -8,12 +8,13 @@
     <color name="ob_icon">#A79BFF</color>
     <color name="ob_dot">#3A3A4E</color>
 
-    <!-- Today (Figma 02) — dark theme -->
-    <color name="td_bg">#101014</color>
-    <color name="td_card">#1C1C24</color>
-    <color name="td_text">#FFFFFF</color>
-    <color name="td_sub">#A7A9B8</color>
-    <color name="td_track">#2A2A35</color>
+    <!-- Redesign (pastel wellness) — dark theme -->
+    <color name="td_bg">#101A20</color>
+    <color name="td_card">#1A262E</color>
+    <color name="td_text">#F2F5F7</color>
+    <color name="td_sub">#93A3B3</color>
+    <color name="td_primary">#6FD3BE</color>
+    <color name="td_track">#24333D</color>
     <color name="td_pill_bg">#1D4A35</color>
     <color name="td_pill_text">#4ADE80</color>
     <color name="td_banner_bg">#123B28</color>
@@ -21,8 +22,13 @@
     <color name="td_banner_sub">#A9CDB8</color>
     <color name="td_nav_bg">#17171E</color>
     <color name="td_nav_border">#26262E</color>
-    <color name="td_nav_inactive">#8E90A0</color>
-    <color name="td_chip">#26262E</color>
+    <color name="td_nav_inactive">#6E7E8C</color>
+    <color name="td_chip">#222E37</color>
+    <color name="td_mint_bg">#1C3A2D</color>
+    <color name="td_mint_text">#7BD8A4</color>
+    <color name="td_lavender_bg">#2B2650</color>
+    <color name="td_peach1">#3A2C1B</color>
+    <color name="td_peach2">#4A3520</color>
     <color name="td_break_bg">#2A2148</color>
     <color name="td_chip_off">#1C1C24</color>
     <color name="td_toggle_off">#3A3A44</color>

@@ -19,14 +19,17 @@ import android.os.Process;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Space;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +45,7 @@ import java.util.Map;
 /** ScrollTrack v2.0: Home / Analytics / History / Goals tabs. */
 public class MainActivity extends Activity {
 
-    private static final int C_PRIMARY = 0xFF6257E8;
+    private static final int C_PRIMARY = 0xFF0E3A45;
     private static final int C_SUB = 0xFF777B8B;
     private static final int C_OK = 0xFF24A47F;
     private static final int C_BAD = 0xFFE45C68;
@@ -59,12 +62,13 @@ public class MainActivity extends Activity {
     private TextView navTodayLabel, navInsightsLabel, navLimitsLabel, navYouLabel;
     private int currentTab = 0;
 
-    // Today (Figma 02)
-    private TextView tvTodaySub, tvPill, tvLeftBig, tvUsedBig, tvGoalSub,
-            tvReelsBig, tvReelsSub, tvReclaimedBig, tvReclaimedSub,
-            tvMostUsed, tvMostUsedSub;
-    private ImageView ivMostUsed;
-    private GoalRingView ringGoal;
+    // Today (redesign)
+    private TextView tvGreeting, tvDateLine, tvBalancePill, tvRingBig, tvRingSub,
+            tvHomeReels, tvReelsSub, tvHomeReclaimed, tvReclaimedSub,
+            tvAppIgSub, tvAppFbSub, tvAppTtSub, tvBannerSub;
+    private GoalRingView ringHome;
+    private LinearLayout dateStrip;
+    private ProgressBar barIg, barFb, barTt;
     private View bannerStreak;
     private TextView tvBannerTitle;
 
@@ -175,7 +179,7 @@ public class MainActivity extends Activity {
     }
 
     private void tintNav(ImageView icon, TextView label, boolean active) {
-        int c = active ? C_PRIMARY : getColor(R.color.td_nav_inactive);
+        int c = active ? getColor(R.color.td_primary) : getColor(R.color.td_nav_inactive);
         icon.setColorFilter(c, PorterDuff.Mode.SRC_IN);
         label.setTextColor(c);
         label.setTypeface(null, active ? Typeface.BOLD : Typeface.NORMAL);
@@ -195,44 +199,111 @@ public class MainActivity extends Activity {
         getWindow().getDecorView().setSystemUiVisibility(flags);
     }
 
-    // ---------------- home ----------------
+    // ---------------- home (redesign) ----------------
 
     private void bindHome() {
-        tvTodaySub = findViewById(R.id.tv_today_sub);
-        tvPill = findViewById(R.id.tv_pill);
-        ringGoal = findViewById(R.id.ring_goal);
-        tvLeftBig = findViewById(R.id.tv_left_big);
-        tvUsedBig = findViewById(R.id.tv_used_big);
-        tvGoalSub = findViewById(R.id.tv_goal_sub);
-        tvReelsBig = findViewById(R.id.tv_reels_big);
+        tvGreeting = findViewById(R.id.tv_greeting);
+        tvDateLine = findViewById(R.id.tv_date_line);
+        tvBalancePill = findViewById(R.id.tv_balance_pill);
+        ringHome = findViewById(R.id.ring_home);
+        tvRingBig = findViewById(R.id.tv_ring_big);
+        tvRingSub = findViewById(R.id.tv_ring_sub);
+        tvHomeReels = findViewById(R.id.tv_home_reels);
         tvReelsSub = findViewById(R.id.tv_reels_sub);
-        tvReclaimedBig = findViewById(R.id.tv_reclaimed_big);
+        tvHomeReclaimed = findViewById(R.id.tv_home_reclaimed);
         tvReclaimedSub = findViewById(R.id.tv_reclaimed_sub);
-        tvMostUsed = findViewById(R.id.tv_most_used);
-        tvMostUsedSub = findViewById(R.id.tv_most_used_sub);
-        ivMostUsed = findViewById(R.id.iv_most_used);
+        tvAppIgSub = findViewById(R.id.tv_app_ig_sub);
+        tvAppFbSub = findViewById(R.id.tv_app_fb_sub);
+        tvAppTtSub = findViewById(R.id.tv_app_tt_sub);
+        barIg = findViewById(R.id.bar_app_ig);
+        barFb = findViewById(R.id.bar_app_fb);
+        barTt = findViewById(R.id.bar_app_tt);
+        dateStrip = findViewById(R.id.date_strip);
         bannerStreak = findViewById(R.id.banner_streak);
         tvBannerTitle = findViewById(R.id.tv_banner_title);
+        tvBannerSub = findViewById(R.id.tv_banner_sub);
+
+        buildDateStrip();
 
         findViewById(R.id.tv_edit_goal).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) { showTab(2); }
+            @Override public void onClick(View v) { editGlobalGoal(); }
         });
-        findViewById(R.id.card_most_used).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) { showTab(1); }
-        });
-        findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_bell).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DiagnosticsActivity.class));
             }
+        });
+        View.OnClickListener goInsights = new View.OnClickListener() {
+            @Override public void onClick(View v) { showTab(1); }
+        };
+        findViewById(R.id.row_app_ig).setOnClickListener(goInsights);
+        findViewById(R.id.row_app_fb).setOnClickListener(goInsights);
+        findViewById(R.id.row_app_tt).setOnClickListener(goInsights);
+        bannerStreak.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { showTab(3); } // You tab has the live streak card
         });
         findViewById(R.id.btn_break).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) { showTab(2); } // break controls live on Limits
         });
     }
 
+    /** Date strip: today + next 6 days, like the Figma. Tapping jumps to Insights. */
+    private void buildDateStrip() {
+        dateStrip.removeAllViews();
+        final float dp = getResources().getDisplayMetrics().density;
+        Calendar base = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("d", Locale.US);
+        int pill = (int) (56 * dp + 0.5f);
+        for (int k = 0; k < 7; k++) {
+            final int daysFrom = k;
+            Calendar day = (Calendar) base.clone();
+            day.add(Calendar.DAY_OF_YEAR, k);
+            FrameLayout f = new FrameLayout(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, pill, 1f);
+            f.setLayoutParams(lp);
+            boolean today = k == 0;
+            f.setBackgroundResource(today ? R.drawable.date_pill_on : R.drawable.date_pill_off);
+            if (!today && Build.VERSION.SDK_INT >= 21) f.setElevation(3 * dp);
+            TextView t = new TextView(this);
+            t.setText(df.format(day.getTime()));
+            t.setTextSize(17);
+            t.setTypeface(null, Typeface.BOLD);
+            t.setTextColor(today ? 0xFFFFFFFF : getColor(R.color.td_text));
+            FrameLayout.LayoutParams tp = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            tp.gravity = Gravity.CENTER;
+            f.addView(t, tp);
+            f.setClickable(true);
+            f.setFocusable(true);
+            f.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { jumpToInsightsDay(daysFrom); }
+            });
+            dateStrip.addView(f);
+            if (k < 6) {
+                Space sp = new Space(this);
+                sp.setLayoutParams(new LinearLayout.LayoutParams((int) (9 * dp + 0.5f), 1));
+                dateStrip.addView(sp);
+            }
+        }
+    }
+
+    /** Date strip pill -> Insights Day view for the tapped date (0 = today). */
+    private void jumpToInsightsDay(int daysFromToday) {
+        anMode = 0;
+        anOffset = daysFromToday; // positive = future (anEndAgo() negates)
+        showTab(1);
+        refreshAnalytics();
+    }
+
     private void refreshHome() {
-        String dateStr = new SimpleDateFormat("EEEE, MMMM d", Locale.US).format(new Date());
-        tvTodaySub.setText(dateStr + " · You've got this.");
+        // Time-aware greeting
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        String g = hour < 12 ? "Good morning"
+                : (hour < 17 ? "Good afternoon" : "Good evening");
+        tvGreeting.setText(g + " \uD83D\uDC4B");
+        String dateStr = new SimpleDateFormat("EEEE, MMM d", Locale.US).format(new Date());
+        tvDateLine.setText(dateStr + " \u00B7 You\u2019ve got this.");
 
         StatsDb.Day d = db.getDay(StatsDb.today());
         int goal = Math.max(1, goalMins);
@@ -241,49 +312,54 @@ public class MainActivity extends Activity {
         int leftMins = Math.max(0, goal - usedMins);
 
         // Daily balance ring: used fraction of the daily goal
-        ringGoal.setProgress(usedSecs / (float) (goal * 60));
-        tvLeftBig.setText(fmtShortMins(leftMins));
-        tvUsedBig.setText(fmtShortMins(usedMins));
-        tvGoalSub.setText("of your " + fmtShortMins(goal) + " daily goal");
+        ringHome.setProgress(usedSecs / (float) (goal * 60));
+        tvRingBig.setText(fmtShortMins(leftMins));
+        tvRingSub.setText("left of your\n" + fmtShortMins(goal) + " goal");
 
         boolean over = usedMins > goalMins;
-        tvPill.setText(over ? "Over limit" : "On track");
-        tvPill.setBackgroundResource(over ? R.drawable.pill_danger : R.drawable.pill_track);
-        tvPill.setTextColor(getColor(over ? R.color.danger : R.color.td_pill_text));
+        tvBalancePill.setText(over ? "Over limit" : "On track");
+        tvBalancePill.setBackgroundResource(over ? R.drawable.pill_danger : R.drawable.pill_track);
+        tvBalancePill.setTextColor(getColor(over ? R.color.danger : R.color.td_pill_text));
 
         // Stat cards
-        tvReelsBig.setText(String.valueOf(d.totalReels()));
+        tvHomeReels.setText(String.valueOf(d.totalReels()));
         tvReelsSub.setText(fmtShortMins(usedMins) + " of your day");
 
         StatsDb.Day lastWeek = db.getDayOffset(7);
         int reclaimedSecs = Math.max(0, lastWeek.totalSecs() - usedSecs);
-        tvReclaimedBig.setText(fmtShortMins(reclaimedSecs / 60));
+        tvHomeReclaimed.setText(fmtShortMins(reclaimedSecs / 60));
         String wd = new SimpleDateFormat("EEEE", Locale.US).format(
                 new Date(System.currentTimeMillis() - 7L * 24 * 60 * 60 * 1000));
         tvReclaimedSub.setText("vs. last " + wd);
 
-        // Most used app
-        String appName = "Instagram";
-        int appSecs = d.igSecs, appReels = d.igReels, appIcon = R.drawable.ic_ig;
-        if (d.fbSecs > appSecs) {
-            appName = "Facebook"; appSecs = d.fbSecs; appReels = d.fbReels; appIcon = R.drawable.ic_fb;
-        }
-        if (d.ttSecs > appSecs) {
-            appName = "TikTok"; appSecs = d.ttSecs; appReels = d.ttReels; appIcon = R.drawable.ic_tt;
-        }
-        ivMostUsed.setImageResource(appIcon);
-        tvMostUsed.setText("Most used · " + appName);
-        tvMostUsedSub.setText(fmtShortMins(appSecs / 60) + " today · " + appReels + " reels");
+        // Your apps rows
+        int denom = Math.max(1, usedSecs);
+        bindAppRow(tvAppIgSub, barIg, d.igSecs, d.igReels, denom);
+        bindAppRow(tvAppFbSub, barFb, d.fbSecs, d.fbReels, denom);
+        bindAppRow(tvAppTtSub, barTt, d.ttSecs, d.ttReels, denom);
 
-        // Streak banner (Figma 02/05): live once the streak system runs
+        // Streak banner: live once the streak system runs
         int streak = prefs.getStreak();
         if (streak >= 1) {
             bannerStreak.setVisibility(View.VISIBLE);
-            tvBannerTitle.setText(streak + (streak == 1 ? " day" : " days")
-                    + " of showing up. Look at you!");
+            tvBannerTitle.setText(streak + "-day streak \u00B7 Look at you!");
+            tvBannerSub.setText("Small steps, kinder routine.");
         } else {
             bannerStreak.setVisibility(View.GONE);
         }
+    }
+
+    private void bindAppRow(TextView sub, ProgressBar bar, int secs, int reels, int totalSecs) {
+        sub.setText(fmtHm(secs / 60) + " \u00B7 " + reels + " reels");
+        bar.setMax(1000);
+        bar.setProgress((int) (1000L * secs / totalSecs));
+    }
+
+    /** "42m" / "1h 02m" / "2h" style (Figma apps rows). */
+    private static String fmtHm(int mins) {
+        if (mins < 60) return mins + "m";
+        if (mins % 60 == 0) return (mins / 60) + "h";
+        return (mins / 60) + "h " + String.format(Locale.US, "%02d", mins % 60) + "m";
     }
 
     /** "28m" / "1h 32m" / "2h" style. */
@@ -415,7 +491,7 @@ public class MainActivity extends Activity {
 
     private void styleSeg(TextView tv, boolean active) {
         tv.setBackgroundResource(active ? R.drawable.seg_selected_td : 0);
-        tv.setTextColor(active ? C_PRIMARY : getColor(R.color.td_sub));
+        tv.setTextColor(active ? getColor(R.color.td_primary) : getColor(R.color.td_sub));
         tv.setTypeface(null, active ? Typeface.BOLD : Typeface.NORMAL);
     }
 
@@ -446,7 +522,7 @@ public class MainActivity extends Activity {
             segs[h][0] = hours[0][h] + hours[1][h] + hours[2][h];
         }
         chartAnalytics.setYAxis(false);
-        chartAnalytics.setData(labels, segs, new int[]{C_PRIMARY}, -1, false, false);
+        chartAnalytics.setData(labels, segs, new int[]{getColor(R.color.td_primary)}, -1, false, false);
         legendRow.setVisibility(View.GONE);
 
         StatsDb.Day d = db.getDay(date);
@@ -498,7 +574,7 @@ public class MainActivity extends Activity {
             sumSecs += dd.totalSecs();
         }
         chartAnalytics.setYAxis(true);
-        chartAnalytics.setData(labels, segs, new int[]{C_PRIMARY, otherColor},
+        chartAnalytics.setData(labels, segs, new int[]{getColor(R.color.td_primary), otherColor},
                 endAgo == 0 ? n - 1 : -1, false, false);
         legendRow.setVisibility(View.VISIBLE);
 

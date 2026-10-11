@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Bottom nav — Figma 02: Today / Insights / Limits / You -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Bottom nav — redesign: floating white pill, calendar / bars / shield / person -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/td_nav_bg">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/td_nav_border" />
+    android:background="@android:color/transparent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="14dp"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="12dp">
+        android:background="@drawable/nav_pill"
+        android:elevation="10dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:id="@+id/nav_today"
@@ -32,7 +32,7 @@
                 android:id="@+id/nav_today_icon"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
-                android:src="@drawable/ic_nav_home" />
+                android:src="@drawable/ic_nav_today" />
 
             <TextView
                 android:id="@+id/nav_today_label"
@@ -119,4 +119,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- ScrollTrack palette (exact, no extra accents) -->
-    <color name="primary">#6257E8</color>
-    <color name="primary_light">#EEECFF</color>
+    <color name="primary">#0E3A45</color>
+    <color name="primary_light">#D9E8EC</color>
     <color name="app_bg">#F7F8FC</color>
     <color name="card_bg">#FFFFFF</color>
     <color name="text_primary">#191B2A</color>
@@ -18,20 +18,21 @@
     <color name="tiktok">#111111</color>
 
     <!-- Legacy names mapped onto the palette (structure unchanged) -->
-    <color name="accent">#6257E8</color>
-    <color name="accent_dark">#6257E8</color>
+    <color name="accent">#0E3A45</color>
+    <color name="accent_dark">#0E3A45</color>
     <color name="ok_green">#24A47F</color>
     <color name="warn_red">#E45C68</color>
     <color name="page_bg">#F7F8FC</color>
     <color name="text_main">#191B2A</color>
     <color name="text_sub">#777B8B</color>
 
-    <!-- Today (Figma 02) — light theme (night overrides in values-night) -->
-    <color name="td_bg">#F6F6FB</color>
+    <!-- Redesign (pastel wellness) — light theme (night overrides in values-night) -->
+    <color name="td_bg">#EDF1F4</color>
     <color name="td_card">#FFFFFF</color>
-    <color name="td_text">#191B2A</color>
-    <color name="td_sub">#777B8B</color>
-    <color name="td_track">#ECECF1</color>
+    <color name="td_text">#14232B</color>
+    <color name="td_sub">#8A99A5</color>
+    <color name="td_primary">#0E3A45</color>
+    <color name="td_track">#E3E9EE</color>
     <color name="td_pill_bg">#DFF7E8</color>
     <color name="td_pill_text">#1F9D63</color>
     <color name="td_banner_bg">#DDF5E4</color>
@@ -39,8 +40,13 @@
     <color name="td_banner_sub">#5C7768</color>
     <color name="td_nav_bg">#FFFFFF</color>
     <color name="td_nav_border">#ECECF1</color>
-    <color name="td_nav_inactive">#8A8D9C</color>
-    <color name="td_chip">#F1F1F5</color>
+    <color name="td_nav_inactive">#9AA8B5</color>
+    <color name="td_chip">#E8EDF2</color>
+    <color name="td_mint_bg">#D6EEDD</color>
+    <color name="td_mint_text">#1F7A4D</color>
+    <color name="td_lavender_bg">#DCD3F2</color>
+    <color name="td_peach1">#FBE7C6</color>
+    <color name="td_peach2">#F9D9A8</color>
     <color name="td_break_bg">#EFEBFF</color>
     <color name="td_chip_off">#FFFFFF</color>
     <color name="td_toggle_off">#E4E4EA</color>

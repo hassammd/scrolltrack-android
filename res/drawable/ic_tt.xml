@@ -2,13 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="11dp" />
-            <solid android:color="#0F0F0F" />
+            <corners android:radius="14dp" />
+            <solid android:color="#DCD3F2" />
         </shape>
     </item>
     <item
         android:width="21dp"
         android:height="24dp"
         android:gravity="center"
-        android:drawable="@drawable/fa_tiktok" />
+        android:drawable="@drawable/fa_tiktok_dark" />
 </layer-list>

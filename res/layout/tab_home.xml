@@ -1,396 +1,584 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Today tab — Figma 02 (light + dark via td_* colors) -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Today tab — redesign: pastel wellness home -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@color/td_bg"
-    android:paddingStart="24dp"
-    android:paddingEnd="24dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="24dp">
+    android:clipToPadding="false">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_text" />
-
-            <TextView
-                android:id="@+id/tv_today_sub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Sunday, October 11 · You've got this."
-                android:textSize="13sp"
-                android:textColor="@color/td_sub" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/btn_settings"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/circle_td"
-            android:padding="13dp"
-            android:src="@drawable/ic_sliders"
-            android:contentDescription="settings" />
-    </LinearLayout>
-
-    <!-- Daily balance card -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:orientation="vertical"
-        android:background="@drawable/card_td"
-        android:padding="20dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="10dp">
 
+        <!-- Greeting + bell -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Your daily balance"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_text" />
-
-            <TextView
-                android:id="@+id/tv_pill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/pill_track"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:text="On track"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_pill_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <FrameLayout
-                android:layout_width="118dp"
-                android:layout_height="118dp">
-
-                <com.hatch.reeltracker.GoalRingView
-                    android:id="@+id/ring_goal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/tv_left_big"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="28m"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/td_text" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="left today"
-                        android:textSize="12sp"
-                        android:textColor="@color/td_sub" />
-                </LinearLayout>
-            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="20dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_used_big"
+                    android:id="@+id/tv_greeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1h 32m"
-                    android:textSize="26sp"
+                    android:text="Good evening 👋"
+                    android:textSize="28sp"
                     android:textStyle="bold"
                     android:textColor="@color/td_text" />
 
                 <TextView
-                    android:id="@+id/tv_goal_sub"
+                    android:id="@+id/tv_date_line"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="of your 2h daily goal"
-                    android:textSize="13sp"
-                    android:textColor="@color/td_sub" />
-
-                <TextView
-                    android:id="@+id/tv_edit_goal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="Edit daily goal →"
+                    android:text="Monday, Oct 12 · You’ve got this."
                     android:textSize="14sp"
+                    android:textColor="@color/td_sub" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/btn_bell"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_td"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_bell" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Date strip (built in code: today + next 6 days) -->
+        <LinearLayout
+            android:id="@+id/date_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" />
+
+        <!-- Daily balance card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/card_td"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your daily balance"
+                    android:textSize="22sp"
                     android:textStyle="bold"
-                    android:textColor="#6257E8" />
+                    android:textColor="@color/td_text" />
+
+                <TextView
+                    android:id="@+id/tv_balance_pill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pill_track"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:text="On track"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/td_pill_text" />
             </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Stat cards -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@drawable/card_td"
-            android:padding="16dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_clapper"
-                    android:contentDescription="reels icon" />
+                <FrameLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp">
 
-                <TextView
+                    <com.hatch.reeltracker.GoalRingView
+                        android:id="@+id/ring_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_ring_big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="42m"
+                            android:textSize="34sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/td_text" />
+
+                        <TextView
+                            android:id="@+id/tv_ring_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="left of your\n1h goal"
+                            android:textSize="13sp"
+                            android:textColor="@color/td_sub" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="bottom|end">
+
+                    <TextView
+                        android:id="@+id/tv_edit_goal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="Edit daily goal →"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/td_primary" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Stat cards -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/stat_card_lavender"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/doodle_brain" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="Reels watched"
-                    android:textSize="13sp"
-                    android:textColor="@color/td_sub" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true">
 
-            <TextView
-                android:id="@+id/tv_reels_big"
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reels watched"
+                        android:textSize="14sp"
+                        android:textColor="@color/td_text" />
+
+                    <TextView
+                        android:id="@+id/tv_home_reels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="128"
+                        android:textSize="34sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/td_text" />
+
+                    <TextView
+                        android:id="@+id/tv_reels_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="2h 14m of your day"
+                        android:textSize="12sp"
+                        android:textColor="@color/td_sub" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="84"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_text" />
-
-            <TextView
-                android:id="@+id/tv_reels_sub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="41m of your day"
-                android:textSize="12sp"
-                android:textColor="@color/td_sub" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="12dp"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@drawable/card_td"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/stat_card_mint"
+                android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_leaf"
-                    android:contentDescription="leaf icon" />
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/doodle_leaf_clock" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="Time reclaimed"
-                    android:textSize="13sp"
-                    android:textColor="@color/td_sub" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true">
 
-            <TextView
-                android:id="@+id/tv_reclaimed_big"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="20m"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time reclaimed"
+                        android:textSize="14sp"
+                        android:textColor="@color/td_text" />
 
-            <TextView
-                android:id="@+id/tv_reclaimed_sub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="vs. last Sunday"
-                android:textSize="12sp"
-                android:textColor="@color/td_sub" />
-        </LinearLayout>
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_home_reclaimed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="36m"
+                        android:textSize="34sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/td_text" />
 
-    <!-- Most used app -->
-    <LinearLayout
-        android:id="@+id/card_most_used"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/card_td"
-        android:padding="16dp"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/iv_most_used"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:src="@drawable/ic_ig"
-            android:contentDescription="most used app icon" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_most_used"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Most used · Instagram"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_text" />
-
-            <TextView
-                android:id="@+id/tv_most_used_sub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="38m today · 42 reels"
-                android:textSize="13sp"
-                android:textColor="@color/td_sub" />
+                    <TextView
+                        android:id="@+id/tv_reclaimed_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="vs. last Monday"
+                        android:textSize="12sp"
+                        android:textColor="@color/td_sub" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/ic_chevron"
-            android:contentDescription="open" />
-    </LinearLayout>
-
-    <!-- Streak banner (shown once the streak system lands) -->
-    <LinearLayout
-        android:id="@+id/banner_streak"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/banner_td"
-        android:padding="16dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@drawable/ic_leaf"
-            android:contentDescription="leaf icon" />
-
-        <LinearLayout
+        <!-- Your apps -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:orientation="vertical">
+            android:layout_marginTop="22dp"
+            android:text="Your apps"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/td_text" />
 
-            <TextView
-                android:id="@+id/tv_banner_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="7 days of showing up. Look at you!"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/td_banner_text" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/card_td"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/row_app_ig"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Small steps are building a kinder routine."
-                android:textSize="13sp"
-                android:textColor="@color/td_banner_sub" />
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_ig" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Instagram"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/td_text" />
+
+                        <TextView
+                            android:id="@+id/tv_app_ig_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:text="1h 02m · 84 reels"
+                            android:textSize="13sp"
+                            android:textColor="@color/td_sub" />
+
+                        <ProgressBar
+                            android:id="@+id/bar_app_ig"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="8dp"
+                            android:progressDrawable="@drawable/bar_ig" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="60dp"
+                android:background="@color/td_track" />
+
+            <LinearLayout
+                android:id="@+id/row_app_fb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_fb" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Facebook"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/td_text" />
+
+                        <TextView
+                            android:id="@+id/tv_app_fb_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:text="1h 02m · 84 reels"
+                            android:textSize="13sp"
+                            android:textColor="@color/td_sub" />
+
+                        <ProgressBar
+                            android:id="@+id/bar_app_fb"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="8dp"
+                            android:progressDrawable="@drawable/bar_fb" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="60dp"
+                android:background="@color/td_track" />
+
+            <LinearLayout
+                android:id="@+id/row_app_tt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_tt" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TikTok"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/td_text" />
+
+                        <TextView
+                            android:id="@+id/tv_app_tt_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:text="1h 02m · 84 reels"
+                            android:textSize="13sp"
+                            android:textColor="@color/td_sub" />
+
+                        <ProgressBar
+                            android:id="@+id/bar_app_tt"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="8dp"
+                            android:progressDrawable="@drawable/bar_tt" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chevron" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+
+        <!-- Streak banner -->
+        <LinearLayout
+            android:id="@+id/banner_streak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/streak_banner_new"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:src="@drawable/doodle_flame" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_banner_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5-day streak · Look at you!"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/td_text" />
+
+                <TextView
+                    android:id="@+id/tv_banner_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Small steps, kinder routine."
+                    android:textSize="13sp"
+                    android:textColor="@color/td_sub" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_sparkles" />
+        </LinearLayout>
+
+        <!-- Take a break -->
+        <LinearLayout
+            android:id="@+id/btn_break"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/btn_primary"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_pause_ring" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Take a break"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
     </LinearLayout>
-
-    <!-- Take a break -->
-    <Button
-        android:id="@+id/btn_break"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/btn_primary"
-        android:drawableStart="@drawable/ic_pause"
-        android:drawablePadding="10dp"
-        android:gravity="center"
-        android:text="Take a break"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF" />
-
-</LinearLayout>
+</ScrollView>

@@ -38,11 +38,11 @@ public class GoalRingView extends View {
 
         boolean night = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES;
-        p.setColor(night ? 0xFF2A2A35 : 0xFFECECF1);
+        p.setColor(night ? 0xFF24333D : 0xFFE3E9EE);
         cv.drawArc(oval, 0, 360, false, p);
 
         if (progress > 0.005f) {
-            p.setColor(0xFF6257E8);
+            p.setColor(night ? 0xFF6FD3BE : 0xFF0E3A45);
             cv.drawArc(oval, -90, 360 * progress, false, p);
         }
     }
