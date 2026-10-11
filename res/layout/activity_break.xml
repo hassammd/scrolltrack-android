@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple break timer (temporary native screen until Figma designs it) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/td_bg"
+    android:padding="32dp">
+
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/circle_td"
+        android:padding="18dp"
+        android:src="@drawable/ic_pause"
+        android:contentDescription="pause icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="You're on a break"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/td_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Put the phone down. Stretch.\nBreathe. The reels will wait."
+        android:textSize="15sp"
+        android:textColor="@color/td_sub" />
+
+    <TextView
+        android:id="@+id/tv_break_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="10:00"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        android:textColor="@color/td_text" />
+
+    <Button
+        android:id="@+id/btn_end_break"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_primary"
+        android:text="End break"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

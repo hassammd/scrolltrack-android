@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Streak milestone celebration — Figma 05 (light + dark via td_* colors) -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/td_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="28dp">
+
+        <!-- Top bar: streak pill + close -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/pill_streak"
+                android:paddingStart="14dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_flame"
+                    android:contentDescription="flame" />
+
+                <TextView
+                    android:id="@+id/tv_streak_pill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:text="7-day streak"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/streak_pill_text" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:padding="11dp"
+                android:src="@drawable/ic_close"
+                android:contentDescription="close" />
+        </LinearLayout>
+
+        <!-- Flame hero -->
+        <com.hatch.reeltracker.FlameView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp" />
+
+        <!-- Headline -->
+        <TextView
+            android:id="@+id/tv_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="A whole week. All you."
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/td_text" />
+
+        <TextView
+            android:id="@+id/tv_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="You stayed within your goal for 7 days. That's real progress, one day at a time."
+            android:textSize="15sp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/td_sub" />
+
+        <!-- Week of small wins -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:background="@drawable/card_td"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your week of small wins"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/td_text" />
+
+                <TextView
+                    android:id="@+id/tv_week_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oct 5–11"
+                    android:textSize="13sp"
+                    android:textColor="@color/td_sub" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/week_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Reclaimed this week -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_td"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/chip_tint"
+                android:padding="12dp"
+                android:src="@drawable/ic_leaf"
+                android:contentDescription="leaf" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_reclaimed_big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2h 48m"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/td_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="reclaimed this week. Spend it on you."
+                    android:textSize="13sp"
+                    android:textColor="@color/td_sub" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- CTA -->
+        <Button
+            android:id="@+id/btn_keep"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/btn_primary"
+            android:drawableStart="@drawable/ic_arrow_right"
+            android:drawablePadding="8dp"
+            android:text="Keep the good going"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="A missed day never erases your progress."
+            android:textSize="12sp"
+            android:textColor="@color/td_sub" />
+
+    </LinearLayout>
+</ScrollView>

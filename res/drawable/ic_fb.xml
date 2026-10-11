@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="11dp" />
+            <solid android:color="#1877F2" />
+        </shape>
+    </item>
+    <item
+        android:width="15dp"
+        android:height="24dp"
+        android:gravity="center"
+        android:drawable="@drawable/fa_facebook_f" />
+</layer-list>

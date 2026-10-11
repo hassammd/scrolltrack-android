@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/page_bg"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily Limits"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_main"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="When a limit is crossed you get one alert per day. Set 0 to disable a limit."
+        android:textSize="13sp"
+        android:textColor="@color/text_sub"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max reels per day (Instagram + Facebook + TikTok)"
+        android:textSize="14sp"
+        android:textColor="@color/text_main" />
+
+    <EditText
+        android:id="@+id/et_reels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="e.g. 50"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max screen time per day, minutes (both apps)"
+        android:textSize="14sp"
+        android:textColor="@color/text_main" />
+
+    <EditText
+        android:id="@+id/et_minutes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="e.g. 60"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+                    android:backgroundTint="@color/accent"
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save limits" />
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+# Build outputs
+build/
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# Signing keys — NEVER commit keystores
+*.jks
+*.keystore
+
+# Android / IDE
+local.properties
+.idea/
+*.iml
+.gradle/
+
+# OS
+.DS_Store
+Thumbs.db

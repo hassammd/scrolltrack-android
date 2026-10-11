@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ScrollTrack</string>
+    <string name="service_desc">ScrollTrack counts the reels you scroll in Instagram, Facebook and TikTok, and measures time spent in each app, so you can set daily limits.</string>
+    <string name="limits_title">Daily Limits</string>
+    <string name="channel_name">Limit alerts</string>
+    <string name="channel_desc">Notifies you when a daily reel or time limit is reached.</string>
+    <string name="track_channel_name">Tracking status</string>
+    <string name="track_channel_desc">Shows a quiet notification while Instagram or Facebook is being tracked.</string>
+</resources>
