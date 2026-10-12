@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/row_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:src="@drawable/ic_ig"
             android:contentDescription="app icon" />
 
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Instagram"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:textColor="@color/td_text" />
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="38m used · 7m left"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textColor="@color/td_sub" />
         </LinearLayout>
 
@@ -50,18 +50,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="45m"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/td_text" />
 
-        <Switch
+        <ImageView
             android:id="@+id/row_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="52dp"
+            android:layout_height="32dp"
             android:layout_marginStart="10dp"
-            android:textOn=""
-            android:textOff=""
-            android:checked="true" />
+            android:src="@drawable/toggle_on"
+            android:contentDescription="limit toggle" />
     </LinearLayout>
 
     <ProgressBar
@@ -70,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="56dp"
         android:max="100"
         android:progress="70"
         android:progressDrawable="@drawable/bar_ig" />

@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Single source of truth for the version: AndroidManifest.xml
+def manifestFile = file('../AndroidManifest.xml')
+def manifest = new XmlParser().parse(manifestFile)
+def appVersionCode = manifest.'@android:versionCode'.toInteger()
+def appVersionName = manifest.'@android:versionName'
+
+android {
+    namespace 'com.hatch.reeltracker'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.hatch.reeltracker'
+        minSdk 26
+        targetSdk 34
+        versionCode appVersionCode
+        versionName appVersionName
+    }
+
+    // The project keeps its classic layout (no app/src/main tree).
+    sourceSets {
+        main {
+            manifest.srcFile '../AndroidManifest.xml'
+            java.srcDirs = ['../java']
+            res.srcDirs = ['../res']
+        }
+    }
+
+    signingConfigs {
+        debug {
+            // If the project's debug.keystore sits next to the manifest,
+            // use it so local builds install as updates over released APKs.
+            // Otherwise Android Studio falls back to its own debug key.
+            def ks = file('../debug.keystore')
+            if (ks.exists()) {
+                storeFile ks
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // TODO: add your release keystore here before Play Store upload.
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

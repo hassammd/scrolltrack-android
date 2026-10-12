@@ -23,14 +23,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Space;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -924,14 +922,13 @@ public class MainActivity extends Activity {
             bar.setProgressDrawable(getDrawable(bars[i]));
             bar.setMax(100);
             bar.setProgress(lim > 0 ? Math.min(100, usedMins * 100 / lim) : 0);
-            Switch sw = row.findViewById(R.id.row_toggle);
-            sw.setOnCheckedChangeListener(null);
-            sw.setChecked(on);
-            sw.setTrackTintList(getColorStateList(R.color.toggle_track));
-            sw.setThumbTintList(android.content.res.ColorStateList.valueOf(0xFFFFFFFF));
-            sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override public void onCheckedChanged(CompoundButton b, boolean checked) {
-                    prefs.setAppLimitOn(app, checked);
+            final ImageView tg = row.findViewById(R.id.row_toggle);
+            tg.setImageResource(on ? R.drawable.toggle_on : R.drawable.toggle_off);
+            tg.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    boolean cur = prefs.isAppLimitOn(app);
+                    prefs.setAppLimitOn(app, !cur);
+                    tg.setImageResource(!cur ? R.drawable.toggle_on : R.drawable.toggle_off);
                     refreshGoals();
                 }
             });

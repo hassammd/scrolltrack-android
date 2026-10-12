@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/row_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_ig"
         android:contentDescription="app icon" />
 
@@ -21,7 +21,8 @@
         android:layout_weight="1.7"
         android:layout_marginStart="12dp"
         android:text="Instagram"
-        android:textSize="15sp"
+        android:textSize="17sp"
+        android:textStyle="bold"
         android:textColor="@color/td_text" />
 
     <TextView
@@ -29,9 +30,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="end"
+        android:gravity="center"
         android:text="38m"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         android:textColor="@color/td_text" />
 
@@ -47,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="42"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:singleLine="true"
             android:textColor="@color/td_text" />
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="22m reels"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:singleLine="true"
             android:textColor="@color/td_sub" />
     </LinearLayout>

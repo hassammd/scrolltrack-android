@@ -38,6 +38,14 @@ you stay in control with gentle daily limits, streaks and insights.
 
 ## 🚀 Build
 
+**Option A — Android Studio (recommended).** Open this folder in Android
+Studio, wait for the Gradle sync, then press **Run**. The Design tab
+previews every layout; Run installs the app on your phone or an emulator.
+If `debug.keystore` sits next to `AndroidManifest.xml`, the build uses it,
+so local APKs install as updates over released versions.
+
+**Option B — manual pipeline** (no Gradle):
+
 Requirements: JDK 17 and the Android SDK
 (`build-tools;34.0.0` and `platforms;android-34`).
 

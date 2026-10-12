@@ -98,16 +98,17 @@
                 android:text="You can change this anytime."
                 android:textSize="15sp"
                 android:textColor="@color/td_sub" />
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_goal_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1h"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            android:textColor="@color/td_text" />
+            <TextView
+                android:id="@+id/tv_goal_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1h"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/td_text" />
+        </LinearLayout>
 
         <ImageView
             android:layout_width="22dp"
