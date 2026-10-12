@@ -2,11 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
-// Single source of truth for the version: AndroidManifest.xml
-def manifestFile = file('../AndroidManifest.xml')
-def manifest = new XmlParser().parse(manifestFile)
-def appVersionCode = manifest.'@android:versionCode'.toInteger()
-def appVersionName = manifest.'@android:versionName'
+// Single source of truth for the version: AndroidManifest.xml.
+// Regex on the raw text — namespace-proof (XmlParser chokes on the
+// android: prefix and returns null, which broke the very first sync).
+def manifestText = file('../AndroidManifest.xml').text
+def appVersionCode = (manifestText =~ /android:versionCode="(\d+)"/)[0][1].toInteger()
+def appVersionName = (manifestText =~ /android:versionName="([^"]+)"/)[0][1]
 
 android {
     namespace 'com.hatch.reeltracker'
