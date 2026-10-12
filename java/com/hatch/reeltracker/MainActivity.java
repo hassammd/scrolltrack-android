@@ -254,6 +254,26 @@ public class MainActivity extends Activity {
         Calendar base = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("d", Locale.US);
         int pill = (int) (56 * dp + 0.5f);
+        // Force perfect circles: re-measure as squares once the strip is laid out
+        dateStrip.post(new Runnable() {
+            @Override public void run() {
+                int total = dateStrip.getWidth();
+                if (total <= 0) return;
+                float d = getResources().getDisplayMetrics().density;
+                int gap = (int) (9 * d + 0.5f);
+                int size = (total - gap * 6) / 7;
+                for (int i = 0; i < dateStrip.getChildCount(); i++) {
+                    View ch = dateStrip.getChildAt(i);
+                    if (ch instanceof FrameLayout) {
+                        LinearLayout.LayoutParams lp =
+                                (LinearLayout.LayoutParams) ch.getLayoutParams();
+                        lp.width = size;
+                        lp.height = size;
+                        ch.setLayoutParams(lp);
+                    }
+                }
+            }
+        });
         for (int k = 0; k < 7; k++) {
             final int daysFrom = k;
             Calendar day = (Calendar) base.clone();
@@ -389,10 +409,12 @@ public class MainActivity extends Activity {
         TextView tvStreakSub = findViewById(R.id.tv_you_streak_sub);
         if (streak >= 1) {
             tvStreak.setText(streak + "-day streak");
+            tvStreak.setTextSize(30);
             tvStreakSub.setText("Longest: " + longest + " days \u00B7 "
                     + "A missed day never erases your progress.");
         } else {
             tvStreak.setText("Start your streak");
+            tvStreak.setTextSize(24);
             tvStreakSub.setText("Every clean day grows your flame."
                     + (longest > 0 ? " Longest: " + longest + " days." : ""));
         }

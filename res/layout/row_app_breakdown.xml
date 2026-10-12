@@ -49,6 +49,7 @@
             android:text="42"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:singleLine="true"
             android:textColor="@color/td_text" />
 
         <TextView
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:text="22m reels"
             android:textSize="12sp"
+            android:singleLine="true"
             android:textColor="@color/td_sub" />
     </LinearLayout>
 </LinearLayout>

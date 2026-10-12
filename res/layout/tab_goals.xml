@@ -71,8 +71,8 @@
         android:focusable="true">
 
         <ImageView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/doodle_target"
             android:contentDescription="target icon" />
 
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daily screen time goal"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 android:textColor="@color/td_text" />
 
